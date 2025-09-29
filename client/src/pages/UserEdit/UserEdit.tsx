@@ -93,7 +93,8 @@ const UserEdit = () => {
           <button
             type="submit"
             disabled={updateMutation.isPending}
-            className="bg-[#D4A373] text-[#2B2118] font-semibold p-2 rounded-lg hover:bg-[#E5B185] transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-[#D4A373] text-[#2B2118] font-semibold p-2 rounded-lg hover:bg-[#E5B185] transition 
+            disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {updateMutation.isPending ? "Saving..." : "Save Changes"}
           </button>

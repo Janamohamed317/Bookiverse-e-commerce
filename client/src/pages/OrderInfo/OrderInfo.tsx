@@ -9,13 +9,12 @@ const OrderInfo = () => {
   const { data, isLoading, error } = useGetOrderInfo(orderId!);
   const navigate = useNavigate()
 
-
   if (isLoading)
     return <Spinner size={50} color="#f5f5dc" />;
+
   if (error)
     return <p className="text-center text-red-500">Something went wrong</p>;
 
-  console.log(data?.address);
   return (
     <div className="max-w-5xl m-auto p-6 bg-[#2B2118]/20 backdrop-blur-md border border-[#6C584C]/30 rounded-2xl shadow-lg">
 

@@ -68,7 +68,8 @@ const Users = () => {
                 {FilteredData.map((user) => (
                     <div
                         key={user._id}
-                        className="flex justify-between items-center p-4 bg-[#2B2118]/50 backdrop-blur-md border border-[#6C584C]/30 rounded-xl shadow-sm hover:bg-[#3D2C22]/40 transition"
+                        className="flex justify-between items-center p-4 bg-[#2B2118]/50 backdrop-blur-md border
+                         border-[#6C584C]/30 rounded-xl shadow-sm hover:bg-[#3D2C22]/40 transition"
                     >
                         <div>
                             <p className="text-[#E6D5C3] font-semibold">{user.username}</p>

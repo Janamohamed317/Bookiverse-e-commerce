@@ -30,7 +30,7 @@ const Cart = ({ checkout }: cartProps) => {
         <div className="min-h-screen flex flex-col">
 
             <FontAwesomeIcon icon={faArrowLeft} onClick={() => navigate(-1)}
-                className="flex items-center gap-2 text-[#E6D5C3] hover:text-[#D4A373] ml-4 mt-4 transition" />
+                className="flex items-center gap-2 text-[#E6D5C3] hover:text-[#D4A373] ml-4 mt-4" />
 
             <h2 className="text-3xl font-bold text-center text-[#E6D5C3] mb-6 p-4">
                 Your Cart

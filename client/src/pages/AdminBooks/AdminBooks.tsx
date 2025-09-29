@@ -27,6 +27,9 @@ const AdminBooks = () => {
     if (isLoading) {
         return <Spinner size={50} color="#f5f5dc" />;
     }
+    if (removeBook.isPending) {
+        return <Spinner size={50} color="#f5f5dc" />;
+    }
 
     return (
         <div className="mt-6 flex flex-col p-6 rounded-2xl shadow-lg h-screen">

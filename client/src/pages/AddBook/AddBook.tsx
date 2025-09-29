@@ -18,14 +18,15 @@ const AddBook = () => {
     }, []);
 
     const addBook = useAddBook(bookData, file, setBookData)
-    
+
     if (addBook.isPending) {
         return <Spinner size={50} color="#D4A373" />;
     }
 
     return (
         <div className="flex justify-center items-center p-3">
-            <div className="flex flex-col gap-5 w-96 bg-[#2B2118]/90 backdrop-blur-md border border-[#6C584C]/30 p-6 rounded-2xl shadow-lg">
+            <div className="flex flex-col gap-5 w-96 bg-[#2B2118]/90 backdrop-blur-md border border-[#6C584C]/30 p-6 
+            rounded-2xl shadow-lg">
                 <p className="font-bold text-center text-[#f5f5dc] text-lg">Add New Book</p>
 
                 <label htmlFor="bookName" className="text-[#f5f5dc]">Book Name:</label>
@@ -117,7 +118,7 @@ const AddBook = () => {
 
                 <button
                     onClick={() => addBook.mutate()}
-                    className="bg-[#D4A373] hover:bg-[#E5B185] text-[#2B2118] p-2 rounded-lg font-semibold transition cursor-pointer"
+                    className="bg-[#D4A373] hover:bg-[#E5B185] text-[#2B2118] p-2 rounded-lg font-semibold cursor-pointer"
                 >
                     Add Book
                 </button>
