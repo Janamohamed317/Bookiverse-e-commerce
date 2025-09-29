@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import type { OrderedBooks } from "../../types/Order";
 
@@ -70,15 +70,15 @@ const CartContextProvider = ({ children }: CartContextProviderProps) => {
         setCartItems([])
     }
 
-    const contextValue: CartContextType = {
+    const contextValue = useMemo(() => ({
+        cartItems,
+        setCartItems,
         incrementCartItem,
         decrementCartItem,
         removeCartItem,
-        setCartItems,
-        cartItems,
         getItemQuantity,
-        clearCart,
-    };
+        clearCart
+    }), [cartItems]);
 
     return (
         <CartContext.Provider value={contextValue}>

@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useMemo } from "react";
 import type { ReactNode } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
@@ -6,7 +6,7 @@ import type { Author, NewAuthor } from "../../types/Author";
 import type { NewBook } from "../../types/Book";
 
 type AppContextType = {
-    authors: Author[] ;
+    authors: Author[];
     bookData: NewBook;
     setBookData: React.Dispatch<React.SetStateAction<NewBook>>;
     setAuthorData: React.Dispatch<React.SetStateAction<NewAuthor>>;
@@ -67,7 +67,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
         }
     };
 
-    const contextValue: AppContextType = {
+    const contextValue = useMemo(() => ({
         authors,
         bookData,
         setBookData,
@@ -76,7 +76,8 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
         setAuthorData,
         getAuthors,
         isLoadingAuthors,
-    };
+    }), [authors, bookData, authorData]);
+
 
     return (
         <AppContext.Provider value={contextValue}>
