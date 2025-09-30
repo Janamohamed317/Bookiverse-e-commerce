@@ -17,7 +17,5 @@ export interface NewBook {
     description: string,
     cover: string,
     price: number,
-    image: string,
     quantity: number
-
 }

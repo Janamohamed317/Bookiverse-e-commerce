@@ -1,45 +1,28 @@
-import axios from "axios"
 import type { Author, NewAuthor } from "../types/Author"
-
-
-const Base_URL = "https://book-store-seven-tan.vercel.app"
+import { apiRequest } from "./Axiox"
 
 export const addNewAuthor = async (authorData: NewAuthor) => {
     const token = localStorage.getItem("token")
-    await axios.post(`${Base_URL}/api/authors/add`, {
-        fullName: authorData.fullName,
-        nationality: authorData.nationality,
-    }, {
-        headers: {
-            token: token
-        }
-    })
+    if (!token) {
+        throw new Error("You must login as Admin");
+    }
+    await apiRequest("/api/authors/add", "POST", authorData, token)
 }
 
 export const removeAuthor = async (id: string) => {
     const token = localStorage.getItem("token")
-
-    await axios.delete(`${Base_URL}/api/authors/delete/${id}`, {
-        headers: {
-            token: token
-        }
-    })
+    if (!token) {
+        throw new Error("You must login as Admin");
+    }
+    await apiRequest(`/api/authors/delete/${id}`, "DELETE", {}, token)
 }
 
 export const updateAuthor = async (authorData: NewAuthor, author: Author) => {
     const token = localStorage.getItem("token")
-
-    const res = await axios.put(
-        `${Base_URL}/api/authors/edit/${author._id}`,
-        {
-            fullName: authorData.fullName,
-            nationality: authorData.nationality,
-        },
-        {
-            headers: { token },
-        }
-    );
-    return res.data;
+    if (!token) {
+        throw new Error("You must login as Admin");
+    }
+    await apiRequest(`/api/authors/edit/${author._id}`, "PUT", authorData, token)
 }
 
 export const searchForAuthor = (searchedAuthor: string, data: Author[]) => {

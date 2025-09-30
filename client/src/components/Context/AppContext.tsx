@@ -30,7 +30,6 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
         description: "",
         cover: "",
         price: 0,
-        image: "",
         quantity: 0
     });
 

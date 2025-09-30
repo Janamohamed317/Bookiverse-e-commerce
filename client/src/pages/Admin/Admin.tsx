@@ -27,7 +27,7 @@ const Admin = () => {
     
     const navigate = useNavigate()
     return (
-        <div className="flex h-screen  w-full">
+        <div className="flex h-screen overflow-auto w-full">
             <SideBar setActiveTab={setActiveTab} />
 
             <div className="flex flex-col flex-1 p-8 text-[#E6D5C3]">

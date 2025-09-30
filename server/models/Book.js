@@ -61,7 +61,6 @@ function ValidateBookCreation(obj) {
         price: Joi.number().min(1).required(),
         cover: Joi.string().valid("Soft Cover", "Hard Cover").required(),
         quantity: Joi.number().required().min(1),
-
     });
 
     return schema.validate(obj);
@@ -75,11 +74,12 @@ function ValidateUpdateBook(obj) {
         price: Joi.number().min(1),
         cover: Joi.string().valid("Soft Cover", "Hard Cover"),
         quantity: Joi.number().min(1),
-
     });
 
     return schema.validate(obj);
 }
+
+
 module.exports =
 {
     Book,

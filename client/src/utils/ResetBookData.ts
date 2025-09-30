@@ -7,7 +7,6 @@ export function resetBookData(setBookData: React.Dispatch<React.SetStateAction<N
     description: "",
     cover: "",
     price: 0,
-    image: "",
     quantity: 0
   });
 }

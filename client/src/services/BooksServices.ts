@@ -1,67 +1,43 @@
-import axios from "axios";
 import type { Book, NewBook } from "../types/Book";
 import { UploadImg } from "../utils/UploadImg";
-
-
-const Base_URL = "https://book-store-seven-tan.vercel.app"
+import { apiRequest } from "./Axiox";
 
 export const getAllBooks = async () => {
-    const res = await axios.get(`${Base_URL}/api/books`);
-    return res.data;
+    return await apiRequest<Book[]>("/api/books", "GET")
 }
 
 export const deleteBook = async (bookId: string) => {
     const token = localStorage.getItem("token")
-
-    axios.delete(`${Base_URL}/api/books/delete/${bookId}`, {
-        headers: {
-            token: token
-        }
-    })
+    if (!token) {
+        throw new Error("You must login as Admin");
+    }
+    await apiRequest<Book>(`/api/books/delete/${bookId}`, "DELETE", {}, token)
 }
 
 export const updateBook = async (bookData: NewBook, file: File | null, book: Book) => {
     const token = localStorage.getItem("token")
-    console.log(bookData.author);
-    
-
-    await axios.put(
-        `${Base_URL}/api/books/edit/${book._id}`,
-        {
-            title: bookData.title,
-            author: bookData.author,
-            description: bookData.description,
-            cover: bookData.cover,
-            price: bookData.price,
-            quantity: bookData.quantity
-        },
-        { headers: { token } }
-    );
-    await UploadImg(book, file);
+    if (!token) {
+        throw new Error("You must login as Admin");
+    }
+    await apiRequest<NewBook>(`/api/books/edit/${book._id}`, "PUT", bookData, token)
+    if (file) {
+        await UploadImg(book, file);
+    }
 }
 
 export const addNewBook = async (bookData: NewBook, file: File | null) => {
     const token = localStorage.getItem("token")
-
-    
-    const res = await axios.post(`${Base_URL}/api/books/add`, {
-        title: bookData.title,
-        author: bookData.author,
-        description: bookData.description,
-        cover: bookData.cover,
-        price: bookData.price,
-        quantity: bookData.quantity
-    }, {
-        headers: {
-            token: token
-        }
-    })
-    await UploadImg(res.data, file)
+    if (!token) {
+        throw new Error("You must login as Admin");
+    }
+    const newBook = await apiRequest<Book>("/api/books/add", "POST", bookData, token);
+    if (file) {
+        await UploadImg(newBook, file);
+    }
 }
 
 export const getBooksPerPage = async (pageNumber: number) => {
-    const res = await axios.get(`${Base_URL}/api/books?pageNumber=${pageNumber}`);
-    return res.data
+    return await apiRequest<Book>(`/api/books?pageNumber=${pageNumber}`, "GET")
 }
 
 export const searchForBook = (searchedBook: string, data: Book[]) => {

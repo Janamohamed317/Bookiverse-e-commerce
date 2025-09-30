@@ -23,7 +23,6 @@ const EditBook = () => {
             description: book.description,
             cover: book.cover,
             price: book.price,
-            image: book.image,
             quantity: book.quantity,
         });
     }, [book]);
