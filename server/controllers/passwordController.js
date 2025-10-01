@@ -1,13 +1,13 @@
 const { User } = require("../models/User");
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
-const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
+const { sendEmail } = require("../utils/MailSender");
 
 
 // Send reset password email
 module.exports.sendForgotPasswordEmail = asyncHandler(async (req, res) => {
-    const { email } = req.body; 
+    const { email } = req.body;
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -19,20 +19,9 @@ module.exports.sendForgotPasswordEmail = asyncHandler(async (req, res) => {
 
     const link = `http://localhost:5173/reset-password/${user.id}/${token}`;
 
-    const transporter = nodemailer.createTransport({
-        service: "Gmail",
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
-        },
-    });
 
-    await transporter.sendMail({
-        from: process.env.EMAIL_USER,
-        to: email,
-        subject: "Reset Your Password",
-        html: `<p>Click the link below to reset your password:</p><a href="${link}">${link}</a>`,
-    });
+    await sendEmail("Reset Your Password", email, `<p>Click the link below to reset your password:</p><a href="${link}">${link}</a>`)
+
 
     res.json({ message: "Password reset email sent!" });
 });
