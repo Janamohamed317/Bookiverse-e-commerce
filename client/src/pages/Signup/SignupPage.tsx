@@ -71,7 +71,8 @@ const SignupPage = () => {
                 <button
                     onClick={() => signupMutation.mutate(formData)}
                     disabled={!formData.email || !formData.username || !formData.password || !formData.confirmPassword}
-                    className="bg-[#D4A373] text-[#2B2118] font-semibold rounded-lg p-2 hover:bg-[#E5B185] transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="bg-[#D4A373] text-[#2B2118] font-semibold rounded-lg p-2
+                     hover:bg-[#E5B185] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     Sign Up
                 </button>

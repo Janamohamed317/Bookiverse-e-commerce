@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import useResetPassword from "../../hooks/Auth/useResetPassword";
-import { verifyLink } from "../../services/UsersServices";
+import { verifyLink } from "../../services/AuthServices";
 
 function ResetPasswordForm() {
     const { id, token } = useParams<{ id: string; token: string }>();

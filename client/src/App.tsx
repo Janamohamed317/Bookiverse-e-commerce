@@ -19,6 +19,7 @@ import Cart from './pages/Cart/Cart'
 import UserEdit from './pages/UserEdit/UserEdit'
 import Checkout from './pages/Checkout/Checkout'
 import Spinner from './components/Spinner/Spinner';
+import OTP from './pages/OTP/OTP';
 
 function App() {
   return (
@@ -32,6 +33,12 @@ function App() {
         <Route path='/' element={
           <ProtectedRoutes>
             <Home />
+          </ProtectedRoutes>
+        } />
+
+        <Route path='/otp-verify' element={
+          <ProtectedRoutes>
+            <OTP />
           </ProtectedRoutes>
         } />
 

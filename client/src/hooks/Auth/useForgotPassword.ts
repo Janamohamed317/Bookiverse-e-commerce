@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import { forgetPassword } from '../../services/UsersServices';
 import { useNavigate } from 'react-router';
+import { forgetPassword } from '../../services/AuthServices';
 
 const useForgotPassword = () => {
     const navigate = useNavigate()

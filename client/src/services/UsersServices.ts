@@ -1,5 +1,4 @@
-import type { Signin, Signup, UpdatedUser, User } from "../types/User"
-import { validateData } from "../utils/SignUpValidation"
+import type { UpdatedUser, User } from "../types/User"
 import { apiRequest } from "./Axiox"
 
 
@@ -52,39 +51,7 @@ export const updateUserInfo = async (updatedData: UpdatedUser) => {
     await apiRequest<UpdatedUser>(`/api/users/edit/${userId}`, "PUT", updatedData, token)
 }
 
-export const signin = async (formData: Signin) => {
-    return await apiRequest<Signin>('/api/auth/login', "POST", formData)
-}
 
-export const signup = async (formData: Signup) => {
-    console.log(formData);
-
-    if (validateData(formData)) {
-        return await apiRequest<Signup>('/api/auth/register', "POST", {
-            email: formData.email,
-            username: formData.username,
-            password: formData.password,
-        })
-    }
-}
-
-export const resetPassword = async (id: string, password: string, token: string) => {
-    return await apiRequest(`/api/password/reset-password/${id}/${token}`, "POST", { password })
-}
-
-export const verifyLink = async (id: string, setInvalid: any, token: string) => {
-    try {
-        return await apiRequest(`/api/password/reset-password/${id}/${token}`, "GET")
-    } catch {
-        setInvalid(true)
-        console.log(token);
-
-    }
-}
-
-export const forgetPassword = async (email: string) => {
-    return await apiRequest("/api/password/forgot-password", "POST", { email })
-}
 
 export const searchForUser = (searchedUser: string, data?: User[]) => {
     if (!data) {

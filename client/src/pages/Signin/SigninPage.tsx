@@ -11,7 +11,7 @@ const SigninPage = () => {
         password: "",
     });
 
-    const signinMutation = useSignin();
+    const signinMutation = useSignin(formData.email);
 
     if (signinMutation.isPending) {
         return <Spinner size={50} color="#D4A373" />;
