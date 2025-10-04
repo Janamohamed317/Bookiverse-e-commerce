@@ -37,9 +37,7 @@ function App() {
         } />
 
         <Route path='/otp-verify' element={
-          <ProtectedRoutes>
-            <OTP />
-          </ProtectedRoutes>
+          <OTP />
         } />
 
         <Route path='/books' element={

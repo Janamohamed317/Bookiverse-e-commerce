@@ -18,7 +18,7 @@ const useSignin = (email: string) => {
             const path = handleNavigate(token);
             navigate(path);
         },
-        onError: (error: unknown) => {
+        onError: (error: any) => {
             if (axios.isAxiosError<Error>(error)) {
                 if (error.response?.status == 400) {
                     navigate("/otp-verify", { state: { email: email } });
