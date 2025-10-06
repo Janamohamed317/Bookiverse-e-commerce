@@ -1,10 +1,10 @@
-import { useContext, useMemo } from "react";
-import { CartContext } from "../../components/Context/CartContext";
+import { useMemo } from "react";
 import { calculateTotalPrice } from "../../services/OrdersServices";
 import { useNavigate } from "react-router";
 import Footer from "../../components/Footer/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useCartStore } from "../../store/cartStore";
 
 
 type cartProps =
@@ -13,12 +13,7 @@ type cartProps =
     }
 
 const Cart = ({ checkout }: cartProps) => {
-    const context = useContext(CartContext);
-    if (!context) {
-        throw new Error("Cart must be used within a CartContextProvider");
-    }
-
-    const { cartItems, incrementCartItem, decrementCartItem, removeCartItem, clearCart } = context;
+    const { cartItems, incrementCartItem, decrementCartItem, removeCartItem, clearCart } = useCartStore();
     const navigate = useNavigate()
 
     const grandTotal = useMemo(() => {

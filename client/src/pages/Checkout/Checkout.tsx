@@ -1,10 +1,10 @@
-import { useContext, useState } from "react";
-import { CartContext } from "../../components/Context/CartContext";
+import { useState } from "react";
 import useMakeOrder from "../../hooks/orders/useMakeOrder";
 import Cart from "../Cart/Cart";
 import type { CheckOut } from "../../types/Order";
 import Spinner from "../../components/Spinner/Spinner";
 import Swal from "sweetalert2";
+import { useCartStore } from "../../store/cartStore";
 
 const Checkout = () => {
     const [shippingInfo, setShippingInfo] = useState<CheckOut>({
@@ -13,11 +13,7 @@ const Checkout = () => {
         notes: "",
     });
 
-    const context = useContext(CartContext);
-    if (!context) {
-        throw new Error("Cart must be used within a CartContextProvider");
-    }
-    const { cartItems, clearCart } = context;
+    const { cartItems, clearCart } = useCartStore();
 
     const makeOrder = useMakeOrder(cartItems, shippingInfo, clearCart);
 

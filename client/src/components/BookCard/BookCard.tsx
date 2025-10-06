@@ -2,9 +2,8 @@ import axios from "axios";
 import type { Book } from "../../types/Book";
 import { useQuery } from "@tanstack/react-query";
 import type { Author } from "../../types/Author";
-import { useContext } from "react";
-import { CartContext } from "../Context/CartContext";
 import type { OrderedBooks } from "../../types/Order";
+import { useCartStore } from "../../store/cartStore";
 
 type BookInfoProps = {
     book: Book;
@@ -13,12 +12,8 @@ type BookInfoProps = {
 const BookCard = ({ book }: BookInfoProps) => {
     const authorId = book.author._id;
 
-    const context = useContext(CartContext);
-    if (!context) {
-        throw new Error("BookCard must be used within a CartContextProvider");
-    }
 
-    const { incrementCartItem, decrementCartItem, getItemQuantity } = context;
+    const { incrementCartItem, decrementCartItem, getItemQuantity } = useCartStore();
 
     const { data } = useQuery<Author>({
         queryKey: ["authorName", authorId],

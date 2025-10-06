@@ -1,22 +1,22 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router";
-import { AppContext } from "../../components/Context/AppContext";
 import useEditBook from "../../hooks/books/useEditBook";
 import Spinner from "../../components/Spinner/Spinner";
+import { useBookStore } from "../../store/BookStore";
+import { useAuthorStore } from "../../store/AuthorStore";
 
 const EditBook = () => {
-    const context = useContext(AppContext);
-    if (!context) {
-        throw new Error("EditBook must be used within an AppContextProvider");
-    }
 
-    const { authors, AssignAuthorIdToAddedBook, setBookData, bookData } = context;
+    const { setBookData, bookData } = useBookStore();
+    const { authors, AssignAuthorIdToAddedBook, getAuthors } = useAuthorStore();
+
     const location = useLocation();
     const { book } = location.state;
 
     const [file, setFile] = useState<File | null>(null);
 
     useEffect(() => {
+        getAuthors()
         setBookData({
             title: book.title,
             author: book.author._id,
@@ -110,11 +110,10 @@ const EditBook = () => {
                     id="author"
                     className="bg-[#f5f5dc] text-[#3e2723] p-2 rounded focus:ring-2 focus:ring-[#a47148] outline-none"
                     onChange={(e) => AssignAuthorIdToAddedBook(e.target.value)}
-                    value={bookData.author}
                 >
                     <option value="">--Choose an author--</option>
                     {authors?.map((author) => (
-                        <option key={author._id} value={author._id}>
+                        <option key={author._id} value={author.fullName}>
                             {author.fullName}
                         </option>
                     ))}

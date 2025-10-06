@@ -1,22 +1,22 @@
-import { useContext, useState } from "react";
-import { AppContext } from "../Context/AppContext";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import type { Author } from "../../types/Author";
 import useDeleteAuthor from "../../hooks/authors/useDeleteAuthor";
 import Search from "../Search/Search";
 import { searchForAuthor } from "../../services/AuthorsServices";
 import Spinner from "../Spinner/Spinner";
+import { useAuthorStore } from "../../store/AuthorStore";
 
 const GetAuthors = () => {
-    const context = useContext(AppContext);
-    if (!context) {
-        throw new Error("useAppContext must be used within an AppContextProvider");
-    }
     const deleteAuthor = useDeleteAuthor();
-    const { authors, isLoadingAuthors } = context;
+    const { authors, isLoadingAuthors, getAuthors } = useAuthorStore();
 
+    useEffect(() => {
+        getAuthors();
+    }, []);
     const [searchedItem, setSearchedItem] = useState("");
     const FilteredData = searchForAuthor(searchedItem, authors);
+
 
     const navigate = useNavigate();
 

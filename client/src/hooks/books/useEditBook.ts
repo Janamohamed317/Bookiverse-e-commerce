@@ -7,14 +7,13 @@ import axios from 'axios';
 import type { Error } from '../../types/Error';
 import { useNavigate } from 'react-router';
 
-const useEditBook = (bookData: NewBook, file: File | null, book: Book, setBookData: any) => {
+const useEditBook = (bookData: NewBook, file: File | null, book: Book, setBookData: any) => {    
     const navigate = useNavigate()
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: () => updateBook(bookData, file, book),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["books"] });
-            // queryClient.invalidateQueries({ queryKey: ["booksPerPage"] });
+            queryClient.refetchQueries({ queryKey: ["books"] });
             queryClient.refetchQueries({ queryKey: ["booksPerPage"] })
             resetBookData(setBookData);
             Swal.fire({

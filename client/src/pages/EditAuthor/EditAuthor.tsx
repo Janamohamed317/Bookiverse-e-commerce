@@ -1,17 +1,11 @@
 import { useLocation } from "react-router";
-import { AppContext } from "../../components/Context/AppContext";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import useUpdateAuthor from "../../hooks/authors/useUpdateAuthor";
 import Spinner from "../../components/Spinner/Spinner";
+import { useAuthorStore } from "../../store/AuthorStore";
 
 function EditAuthor() {
-    const context = useContext(AppContext);
-
-    if (!context) {
-        throw new Error("EditAuthor must be used within an AppContextProvider");
-    }
-
-    const { authorData, setAuthorData } = context;
+    const { authorData, setAuthorData } = useAuthorStore();
 
     const location = useLocation();
     const { author } = location.state;

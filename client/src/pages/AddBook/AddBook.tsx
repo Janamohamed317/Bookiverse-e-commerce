@@ -1,19 +1,20 @@
-import { useContext, useEffect, useState } from 'react'
-import { AppContext } from '../../components/Context/AppContext';
+import { useEffect, useState } from 'react'
 import useAddBook from '../../hooks/books/useAddBook';
 import { resetBookData } from '../../utils/ResetBookData';
 import Spinner from '../../components/Spinner/Spinner';
+import { useBookStore } from '../../store/BookStore';
+import { useAuthorStore } from '../../store/AuthorStore';
 
 const AddBook = () => {
-    const context = useContext(AppContext);
-    if (!context) {
-        throw new Error("AddBook must be used within an AppContextProvider");
-    }
 
-    const { authors, AssignAuthorIdToAddedBook, setBookData, bookData } = context;
+    const { setBookData, bookData } = useBookStore();
+    const { authors, AssignAuthorIdToAddedBook, getAuthors } = useAuthorStore();
+
+
     const [file, setFile] = useState<File | null>(null);
 
     useEffect(() => {
+        getAuthors()
         resetBookData(setBookData)
     }, []);
 
