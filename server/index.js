@@ -7,6 +7,7 @@ const uploadPath = require("./routes/upload");
 const usersPath = require("./routes/users");
 const ordersPath = require("./routes/orders")
 const otpPath = require("./routes/otp")
+const promoCodePath = require("./routes/promoCodes")
 const dbConnection = require("./db/dbConnection");
 const { notFound, errorHandler } = require("./middlewares/errors")
 
@@ -41,6 +42,8 @@ app.use('/api/password', passwordPath);
 app.use('/api/upload', uploadPath);
 app.use('/api/order', ordersPath);
 app.use('/api/otp', otpPath);
+app.use('/api/promo-code', promoCodePath);
+
 
 
 

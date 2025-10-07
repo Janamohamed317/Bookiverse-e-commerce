@@ -48,6 +48,7 @@ const signIn = asyncHandler(async (req, res) => {
 
     let user = await User.findOne({ email: req.body.email })
 
+
     if (!user) {
         return res.status(404).json({ message: "Invalid Email or Password" })
     }
@@ -61,6 +62,11 @@ const signIn = asyncHandler(async (req, res) => {
     if (!user.verified) {
         return res.status(400).json({ message: "Email not verified." })
     }
+
+    if (user.blocked) {
+        return res.status(400).json({ message: "You are Blocked, You Can't Make an Order" })
+    }
+    
     const token = user.generateToken()
     const { isAdmin, password, ...other } = user._doc
     res.status(200).json({ ...other, token })

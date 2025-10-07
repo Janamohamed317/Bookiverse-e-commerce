@@ -92,10 +92,11 @@ function ValidateOrderCreation(obj) {
                 )
                 .min(1)
                 .required(),
-            user: Joi.string().required(),
+            userId: Joi.string().required(),
             address: Joi.string().required(),
             phone: Joi.string().pattern(/^\d{11,}$/).required(),
-            notes: Joi.string().allow("").optional()
+            notes: Joi.string().allow("").optional(),
+            code: Joi.string()
         }
     )
     return schema.validate(obj)

@@ -44,7 +44,16 @@ const userSchema = new mongoose.Schema(
         {
             type: Boolean,
             default: false
-        }
+        },
+        codes: [
+            {
+                _id: false,
+                code: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "PromoCode"
+                }
+            }
+        ]
     },
     { timestamps: true }
 )

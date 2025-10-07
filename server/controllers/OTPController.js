@@ -1,11 +1,16 @@
 const asyncHandler = require("express-async-handler")
-const otpGenerator = require('otp-generator');
+const { customAlphabet } = require('nanoid');
 const { User } = require("../models/User")
-const { OTP } = require("../models/OTP");
+const { OTP, validateSchema } = require("../models/OTP");
 const { sendEmail } = require("../utils/MailSender");
 const bcrypt = require('bcryptjs');
 
 const generateOTP = asyncHandler(async (req, res) => {
+    const { error } = validateSchema(req.body);
+    if (error) {
+        return res.status(400).json({ message: error.details[0].message });
+    }
+
     const { email } = req.body
     const user = await User.findOne({ email })
     if (!user) {
@@ -16,7 +21,8 @@ const generateOTP = asyncHandler(async (req, res) => {
     }
 
     await OTP.deleteMany({ email })
-    const NewOTP = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false });
+    const digits = '0123456789';
+    const NewOTP = customAlphabet(digits, 6);
     const hashedOTP = await bcrypt.hash(NewOTP, 10)
     const otp = new OTP(
         {

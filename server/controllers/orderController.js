@@ -2,6 +2,8 @@ const { Book } = require("../models/Book")
 const { User } = require("../models/User")
 const { Order, ValidateOrderCreation } = require("../models/Order")
 const asyncHandler = require("express-async-handler")
+const { PromoCode } = require("../models/PromoCode")
+const { validatePromoCode } = require("../utils/PromoCodeValidation")
 
 
 // get all orders
@@ -24,10 +26,8 @@ const getAllOrders = asyncHandler(async (req, res) => {
 // make an order
 const makeOrder = asyncHandler(async (req, res) => {
     const { error } = ValidateOrderCreation(req.body)
-    const user = await User.findById(req.body.user)
-    if (user.blocked) {
-        return res.status(400).json({ message: "You are Blocked, You Can't Make an Order" })
-    }
+    const { userId, code } = req.body
+    const user = await User.findById(userId)
 
     if (error) {
         return res.status(400).json({ message: error.details[0].message })
@@ -42,6 +42,8 @@ const makeOrder = asyncHandler(async (req, res) => {
             return res.status(400).json({ message: `Only ${orderedBook.quantity} Copies of ${orderedBook.title} are Available` })
         }
     }
+
+
     let subTotal = 30
     for (const book of req.body.books) {
         const orderedBook = await Book.findById(book.book)
@@ -50,14 +52,22 @@ const makeOrder = asyncHandler(async (req, res) => {
         await orderedBook.save()
     }
 
+    const promoCode = await validatePromoCode(code, userId)
+    const discountAmount = (subTotal * promoCode.amount) / 100
+    subTotal -= discountAmount
+
     const newOrder = new Order({
-        user: req.body.user,
+        user: userId,
         books: req.body.books,
         address: req.body.address,
         notes: req.body.notes,
         phone: req.body.phone,
         subTotal: subTotal
     })
+
+
+    user.codes.push({ code: promoCode._id })
+    await user.save()
 
     const result = await newOrder.save()
     res.status(201).json(result);
