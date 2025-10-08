@@ -5,11 +5,11 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 
-const useMakeOrder = (cartItems: OrderedBooks[], shippingInfo: CheckOut, clearCart: () => void) => {
+const useMakeOrder = (cartItems: OrderedBooks[], shippingInfo: CheckOut, clearCart: () => void, code: string) => {
     const navigate = useNavigate()
     return useMutation({
         mutationKey: ["order", cartItems],
-        mutationFn: () => newOrder(cartItems, shippingInfo),
+        mutationFn: () => newOrder(cartItems, shippingInfo, code),
         onSuccess: () => {
             Swal.fire({
                 icon: "success",

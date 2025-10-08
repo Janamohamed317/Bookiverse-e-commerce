@@ -54,6 +54,10 @@ export const sideBarItems: SideBarItem[] = [
     {
         label: "Orders",
         id: 4
+    },
+    {
+        label: "Promo Codes",
+        id: 5
     }
 ]
 

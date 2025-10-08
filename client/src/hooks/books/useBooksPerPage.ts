@@ -7,6 +7,7 @@ const useBooksPerPage = (pageNumber: number) => {
         queryKey: ["booksPerPage", pageNumber],
         queryFn: () => getBooksPerPage(pageNumber),
         refetchOnWindowFocus: false ,
+        
     });
 }
 

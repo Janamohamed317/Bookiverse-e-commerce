@@ -37,7 +37,7 @@ export const addNewBook = async (bookData: NewBook, file: File | null) => {
 }
 
 export const getBooksPerPage = async (pageNumber: number) => {
-    return await apiRequest<Book>(`/api/books?pageNumber=${pageNumber}`, "GET")
+    return await apiRequest<Book[]>(`/api/books?pageNumber=${pageNumber}`, "GET")
 }
 
 export const searchForBook = (searchedBook: string, data: Book[]) => {

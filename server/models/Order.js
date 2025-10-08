@@ -95,7 +95,7 @@ function ValidateOrderCreation(obj) {
             userId: Joi.string().required(),
             address: Joi.string().required(),
             phone: Joi.string().pattern(/^\d{11,}$/).required(),
-            notes: Joi.string().allow("").optional(),
+            notes: Joi.string().allow(""),
             code: Joi.string()
         }
     )

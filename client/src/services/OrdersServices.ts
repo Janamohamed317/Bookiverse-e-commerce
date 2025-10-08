@@ -1,6 +1,7 @@
 import type { CheckOut, Order, OrderedBooks } from "../types/Order"
 import { apiRequest } from "./Axiox"
 
+
 export const deleteOrder = async (orderId: string) => {
     const token = localStorage.getItem("token")
     if (!token) {
@@ -26,7 +27,6 @@ export const getUserPastOrders = async () => {
     return await apiRequest<Order[]>(`/api/order/user/${userId}`, "GET", {}, token)
 }
 
-
 export const getAllOrders = async (orderStatus: string) => {
     const token = localStorage.getItem("token")
     if (!token) {
@@ -44,19 +44,20 @@ export const getOrderInfo = async (orderId: string) => {
     return await apiRequest<Order>(`/api/order/${orderId}`, "GET", {}, token)
 }
 
-
-export const newOrder = async (orderBooks: OrderedBooks[], shippingInfo: CheckOut) => {
+export const newOrder = async (orderBooks: OrderedBooks[], shippingInfo: CheckOut, code?: string) => {
     const token = localStorage.getItem("token")
     if (!token) {
         throw new Error("You must login as Admin");
     }
+
     return await apiRequest<Order>("/api/order/newOrder", "POST",
         {
             books: orderBooks,
             address: shippingInfo.address,
             phone: shippingInfo.phone,
             notes: shippingInfo.notes,
-            user: localStorage.getItem("userId")
+            userId: localStorage.getItem("userId"),
+            code: code
         },
         token)
 }

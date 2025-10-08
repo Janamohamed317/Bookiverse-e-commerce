@@ -6,6 +6,7 @@ import AdminBooks from "../AdminBooks/AdminBooks";
 import Orders from "../Orders/Orders";
 import { handleLogout } from "../../utils/HandleLogout";
 import { useNavigate } from "react-router";
+import { PromoCode } from "../PromoCode/PromoCode";
 
 const Admin = () => {
     const [activeTab, setActiveTab] = useState<string>("Books");
@@ -20,11 +21,13 @@ const Admin = () => {
                 return <Users />;
             case "Orders":
                 return <Orders />;
+            case "Promo Codes":
+                return <PromoCode />;
             default:
-                return <Authors />;
+                return <AdminBooks />;
         }
     };
-    
+
     const navigate = useNavigate()
     return (
         <div className="flex h-screen overflow-auto w-full">
@@ -34,7 +37,7 @@ const Admin = () => {
                 <button
                     onClick={() => {
                         handleLogout(),
-                        navigate('/signin')
+                            navigate('/signin')
                     }}
                     className="bg-[#D4A373] hover:bg-[#E5B185] text-[#2B2118] font-semibold self-end p-2
                      rounded-xl cursor-pointer">

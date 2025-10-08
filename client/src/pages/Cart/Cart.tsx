@@ -9,16 +9,19 @@ import { useCartStore } from "../../store/cartStore";
 
 type cartProps =
     {
-        checkout: string
+        checkout: string,
+        amount: number
     }
 
-const Cart = ({ checkout }: cartProps) => {
+const Cart = ({ checkout, amount }: cartProps) => {
     const { cartItems, incrementCartItem, decrementCartItem, removeCartItem, clearCart } = useCartStore();
     const navigate = useNavigate()
 
     const grandTotal = useMemo(() => {
-        return calculateTotalPrice(cartItems)
-    }, [cartItems])
+        const total = calculateTotalPrice(cartItems);
+        const discountedTotal = amount ? total - (total * amount / 100) : total;
+        return Math.max(discountedTotal, 0);
+    }, [cartItems, amount]);
 
 
     return (
@@ -79,6 +82,16 @@ const Cart = ({ checkout }: cartProps) => {
                                     </td>
                                 </tr>
                             ))}
+                            {amount > 0 && (
+                                <tr>
+                                    <td colSpan={4} className="px-4 py-3 text-right font-bold">
+                                        Discount:
+                                    </td>
+                                    <td className="px-4 py-3 text-right font-bold text-[#D4A373]">
+                                        ${grandTotal}
+                                    </td>
+                                </tr>
+                            )}
                             <tr>
                                 <td colSpan={4} className="px-4 py-3 text-right font-bold">
                                     Grand Total:

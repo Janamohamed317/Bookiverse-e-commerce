@@ -1,5 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { cancelOrder } from "../../services/OrdersServices"
+import axios from "axios";
+import Swal from "sweetalert2";
+import type { Error } from "../../types/Error";
 
 
 const useCancelOrder = () => {
@@ -10,7 +13,17 @@ const useCancelOrder = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["PastOrders", userId] });
             queryClient.refetchQueries({ queryKey: ["PastOrders", userId] });
-        }
+        },
+        onError: (error) => {
+            if (axios.isAxiosError<Error>(error)) {
+                Swal.fire({
+                    icon: "error",
+                    title: "There is an error",
+                    text: error.response?.data.message,
+                    confirmButtonText: "OK",
+                });
+            }
+        },
     })
 }
 

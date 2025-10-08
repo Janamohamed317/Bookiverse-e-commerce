@@ -4,7 +4,6 @@ export interface OrderedBooks {
     title: string,
     image: string,
     price: number,
-
 }
 
 export interface Order {

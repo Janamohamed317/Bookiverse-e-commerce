@@ -52,9 +52,12 @@ const makeOrder = asyncHandler(async (req, res) => {
         await orderedBook.save()
     }
 
-    const promoCode = await validatePromoCode(code, userId)
-    const discountAmount = (subTotal * promoCode.amount) / 100
-    subTotal -= discountAmount
+    let promoCode
+    if (code) {
+        promoCode = await validatePromoCode(code, userId)
+        const discountAmount = (subTotal * promoCode.amount) / 100
+        subTotal -= discountAmount
+    }
 
     const newOrder = new Order({
         user: userId,
@@ -65,10 +68,11 @@ const makeOrder = asyncHandler(async (req, res) => {
         subTotal: subTotal
     })
 
-
-    user.codes.push({ code: promoCode._id })
-    await user.save()
-
+    if (code) {
+        user.codes.push({ code: promoCode._id })
+        await user.save()
+    }
+    
     const result = await newOrder.save()
     res.status(201).json(result);
 
