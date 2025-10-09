@@ -14,6 +14,7 @@ const useAddBook = (bookData: NewBook, file: File | null, setBookData: any) => {
         mutationFn: () => addNewBook(bookData, file),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["books"] });
+            queryClient.invalidateQueries({ queryKey: ["booksPerPage"] });
             navigate("/admin")
             resetBookData(setBookData)
             Swal.fire({

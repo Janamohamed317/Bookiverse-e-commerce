@@ -11,7 +11,6 @@ const useDeleteBook = () => {
         mutationFn: (bookId: string) => deleteBook(bookId),
         onSuccess: async () => {
             queryClient.invalidateQueries({ queryKey: ["books"] });
-            queryClient.refetchQueries({ queryKey: ["books"] });
             Swal.fire({
                 icon: "success",
                 text: "The Book has been removed.",

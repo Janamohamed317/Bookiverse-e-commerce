@@ -6,7 +6,8 @@ const validatePromoCode = async (code, userId) => {
     if (!promoCode) {
         throw new Error("Invalid Promo Code")
     }
-    if (promoCode.endDate.getTime() < Date.now()) {
+
+    if (promoCode.endDate !== null && promoCode.endDate.getTime() < Date.now()) {
         throw new Error("Promo Code Expired")
     }
 

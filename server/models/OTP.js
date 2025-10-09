@@ -13,7 +13,7 @@ const OTPSchema = new mongoose.Schema({
     createdAt:
     {
         type: Date,
-        default: Date.now(),
+        default: Date.now,
         expires: 60 * 5,
     }
 })
@@ -23,7 +23,6 @@ const OTP = mongoose.model("OTP", OTPSchema)
 function validateSchema(obj) {
     const schema = Joi.object({
         email: Joi.string().required(),
-        otp: Joi.string().required()
     })
     return schema.validate(obj)
 }

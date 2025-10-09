@@ -9,7 +9,7 @@ const useAddPromoCode = () => {
 
     return useMutation({
         mutationFn: addPromoCode,
-        onSuccess: () => queryClient.refetchQueries({ queryKey: ["codes"] }),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["codes"] }),
         onError: (error) => {
             if (axios.isAxiosError<Error>(error)) {
                 Swal.fire({

@@ -3,6 +3,7 @@ const { PromoCode, ValidateCodeCreation } = require("../models/PromoCode")
 const asyncHandler = require("express-async-handler");
 const { User } = require("../models/User");
 const { validatePromoCode } = require("../utils/PromoCodeValidation");
+const { sendEmail } = require("../utils/MailSender");
 
 
 const createPromoCode = asyncHandler(async (req, res) => {
@@ -48,8 +49,27 @@ const getAllCodes = asyncHandler(async (req, res) => {
     return res.status(200).json(codes)
 })
 
+const deleteCode = asyncHandler(async (req, res) => {
+    const { id } = req.params
+    await PromoCode.findByIdAndDelete(id)
+    return res.status(200).json({ message: "Promo Code Deleted" })
+})
+
+const sendPromoCode = asyncHandler(async (req, res) => {
+    const { email } = req.body
+
+    const promoCode = await PromoCode.findOne({ code: "Welcome20" })
+    await sendEmail("Welcome to Bookiverse", email,
+        `Welcome to Bookiverse, here is a 20% discount on your First Order use that PromoCode ${promoCode.code}`)
+
+    return res.status(200)
+})
+
+
 module.exports =
 {
+    sendPromoCode,
+    deleteCode,
     createPromoCode,
     checkPromoCode,
     getAllCodes,

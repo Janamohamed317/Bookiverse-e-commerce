@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useCartStore } from "../../store/cartStore";
 
-
 type cartProps =
     {
         checkout: string,
@@ -19,9 +18,16 @@ const Cart = ({ checkout, amount }: cartProps) => {
 
     const grandTotal = useMemo(() => {
         const total = calculateTotalPrice(cartItems);
-        const discountedTotal = amount ? total - (total * amount / 100) : total;
-        return Math.max(discountedTotal, 0);
+        const discountAmount = amount ? (total * amount) / 100 : 0;
+        const discountedTotal = Math.max(total - discountAmount, 0);
+
+        return {
+            total,
+            discountAmount,
+            discountedTotal,
+        };
     }, [cartItems, amount]);
+
 
 
     return (
@@ -88,16 +94,17 @@ const Cart = ({ checkout, amount }: cartProps) => {
                                         Discount:
                                     </td>
                                     <td className="px-4 py-3 text-right font-bold text-[#D4A373]">
-                                        ${grandTotal}
+                                        -${grandTotal.discountAmount}
                                     </td>
                                 </tr>
+
                             )}
                             <tr>
                                 <td colSpan={4} className="px-4 py-3 text-right font-bold">
                                     Grand Total:
                                 </td>
                                 <td className="px-4 py-3 text-right font-bold text-[#D4A373]">
-                                    ${grandTotal}
+                                    ${grandTotal.discountedTotal}
                                 </td>
                             </tr>
                         </tbody>

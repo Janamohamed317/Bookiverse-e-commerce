@@ -1,7 +1,6 @@
 const { User, ValidateUserLogin, ValidateUserRegistration } = require("../models/User")
 const asyncHandler = require("express-async-handler")
 const bcrypt = require("bcryptjs")
-const { generateOTP } = require("./OTPController")
 
 
 

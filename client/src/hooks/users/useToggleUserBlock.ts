@@ -7,7 +7,7 @@ const useToggleUserBlock = () => {
     return useMutation({
         mutationFn: blockOrUnblockUser,
         onSuccess: async () => {
-            await queryClient.refetchQueries({ queryKey: ["users"] });
+            await queryClient.invalidateQueries({ queryKey: ["users"] });
         }
 
     })

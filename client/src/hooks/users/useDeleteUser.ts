@@ -8,7 +8,6 @@ const useDeleteUser = () => {
         mutationFn: deleteUser,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["users"] });
-            queryClient.refetchQueries({ queryKey: ["users"] });
         }
     })
 }

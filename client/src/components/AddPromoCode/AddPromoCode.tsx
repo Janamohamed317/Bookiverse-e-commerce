@@ -1,9 +1,9 @@
 import { useState } from "react";
-import type { PromoCode } from "../../types/PromoCode";
+import type { NewPromoCode, PromoCode } from "../../types/PromoCode";
 import useAddPromoCode from "../../hooks/PromoCode/useAddPromoCode";
 
 const AddPromoCode = () => {
-    const [promoCode, setPromoCode] = useState<PromoCode>({
+    const [promoCode, setPromoCode] = useState<NewPromoCode>({
         amount: 0,
         startDate: new Date(),
         endDate: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),

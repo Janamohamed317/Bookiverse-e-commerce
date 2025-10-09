@@ -13,7 +13,6 @@ export const signup = async (formData: Signup) => {
             username: formData.username,
             password: formData.password,
         })
-        await sendOTP(formData.email)
         return res
     }
 }

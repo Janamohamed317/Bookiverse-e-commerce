@@ -10,8 +10,7 @@ const useAddAuthor = (authorData: NewAuthor, setAuthorData: any) => {
     return useMutation({
         mutationFn: () => addNewAuthor(authorData),
         onSuccess: async () => {
-            // await queryClient.invalidateQueries({ queryKey: ["authors"] })
-            await queryClient.refetchQueries({ queryKey: ["authors"] });
+            await queryClient.invalidateQueries({ queryKey: ["authors"] })
             Swal.fire({
                 icon: 'success',
                 title: 'Author is Added Successfully',

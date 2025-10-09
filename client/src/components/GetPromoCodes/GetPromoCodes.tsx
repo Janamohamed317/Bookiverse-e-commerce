@@ -1,8 +1,10 @@
+import useDeleteCode from "../../hooks/PromoCode/useDeleteCode";
 import useGetAllCodes from "../../hooks/PromoCode/useGetAllCodes";
 import Spinner from "../Spinner/Spinner";
 
 const GetPromoCodes = () => {
     const { data, isLoading } = useGetAllCodes();
+    const deleteCode = useDeleteCode()
 
     if (isLoading) return <Spinner size={50} color="#D4A373" />;
 
@@ -57,6 +59,7 @@ const GetPromoCodes = () => {
                                         </td>
                                         <td className="border border-[#6C584C]/30 px-4 py-2 text-center">
                                             <button
+                                                onClick={() => deleteCode.mutate(promo._id)}
                                                 className="px-3 py-1 bg-[#7B2D26] hover:bg-[#5C1F19] text-[#f5f5dc] rounded-lg cursor-pointer"
                                             >
                                                 Delete

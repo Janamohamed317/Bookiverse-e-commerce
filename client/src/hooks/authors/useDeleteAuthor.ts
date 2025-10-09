@@ -8,8 +8,8 @@ const useDeleteAuthor = () => {
     return useMutation({
         mutationFn: removeAuthor,
         onSuccess: async () => {
-            // await queryClient.invalidateQueries({ queryKey: ["authors"] })
-            await queryClient.refetchQueries({ queryKey: ["authors"] });
+            await queryClient.invalidateQueries({ queryKey: ["authors"] })
+            // await queryClient.refetchQueries({ queryKey: ["authors"] });
             Swal.fire({
                 icon: "success",
                 text: "Author Deleted Successfully"
