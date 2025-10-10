@@ -65,17 +65,19 @@ const Cart = ({ checkout, amount }: cartProps) => {
                                     <td className="px-4 py-2 text-right">${item.price}</td>
                                     <td className="px-4 py-2 text-right space-x-2">
                                         <button
-                                            className="px-2 py-1 bg-[#3A5A78] hover:bg-[#4F7191] rounded text-white cursor-pointer"
-                                            onClick={() => incrementCartItem(item)}
-                                        >
-                                            +
-                                        </button>
-                                        <button
                                             className="px-2 py-1 bg-[#a47148] hover:bg-[#c68958] rounded text-white cursor-pointer"
                                             onClick={() => decrementCartItem(item)}
                                         >
                                             -
                                         </button>
+
+                                        <button
+                                            className="px-2 py-1 bg-[#3A5A78] hover:bg-[#4F7191] rounded text-white cursor-pointer"
+                                            onClick={() => incrementCartItem(item)}
+                                        >
+                                            +
+                                        </button>
+
                                         <button
                                             className="px-1 py-1 bg-red-600 hover:bg-red-700 rounded text-white cursor-pointer"
                                             onClick={() => removeCartItem(item)}
@@ -99,6 +101,14 @@ const Cart = ({ checkout, amount }: cartProps) => {
                                 </tr>
 
                             )}
+                            <tr>
+                                <td colSpan={4} className="px-4 py-3 text-right font-bold">
+                                    Shipping:
+                                </td>
+                                <td className="px-4 py-3 text-right font-bold text-[#D4A373]">
+                                    $30
+                                </td>
+                            </tr>
                             <tr>
                                 <td colSpan={4} className="px-4 py-3 text-right font-bold">
                                     Grand Total:

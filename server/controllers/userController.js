@@ -31,7 +31,6 @@ const getAllUsers = asyncHandler(async (req, res) => {
     const { blocked } = req.query
     let users
 
-    // feh hena moshkla lw b false 
     if (blocked) {
         users = await User.find({ blocked: blocked }).select("-password")
     }
@@ -87,6 +86,8 @@ const unblockUser = asyncHandler(async (req, res) => {
     }
     res.status(200).json({ message: "User is Unblocked successfully" })
 })
+
+
 
 module.exports =
 {

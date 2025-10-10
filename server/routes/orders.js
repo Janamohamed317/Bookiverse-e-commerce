@@ -3,7 +3,8 @@ const { verifyTokenAndAdmin, verifyTokenAndUser, verifyToken,
     verifyOrderDetails, verifyOrderConfirmationAndCancelation } = require("../middlewares/verifyToken")
 const { deleteOrder, getOrderByOrderId, getOrdersForUser,
     getAllOrders, makeOrder, confirmOrder,
-    cancelOrder } = require("..//controllers/orderController")
+    cancelOrder,
+    shipOrder } = require("..//controllers/orderController")
 
 const router = express.Router();
 
@@ -27,6 +28,8 @@ router.put("/confirmOrder/:id", verifyOrderConfirmationAndCancelation, confirmOr
 
 // cancel order
 router.delete("/cancel/:id", verifyOrderConfirmationAndCancelation, cancelOrder)
+
+router.post("/shipOrder", verifyTokenAndAdmin, shipOrder)
 
 module.exports = router
 

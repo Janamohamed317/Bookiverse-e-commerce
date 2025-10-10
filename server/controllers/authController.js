@@ -63,7 +63,7 @@ const signIn = asyncHandler(async (req, res) => {
     }
 
     if (user.blocked) {
-        return res.status(400).json({ message: "You are Blocked, You Can't Make an Order" })
+        return res.status(403).json({ message: "You are Blocked, You Can't Make an Order" })
     }
     
     const token = user.generateToken()

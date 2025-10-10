@@ -1,7 +1,6 @@
 const { date } = require("joi");
 const { PromoCode, ValidateCodeCreation } = require("../models/PromoCode")
 const asyncHandler = require("express-async-handler");
-const { User } = require("../models/User");
 const { validatePromoCode } = require("../utils/PromoCodeValidation");
 const { sendEmail } = require("../utils/MailSender");
 

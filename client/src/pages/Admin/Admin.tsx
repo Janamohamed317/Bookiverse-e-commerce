@@ -7,6 +7,7 @@ import Orders from "../Orders/Orders";
 import { handleLogout } from "../../utils/HandleLogout";
 import { useNavigate } from "react-router";
 import { PromoCode } from "../PromoCode/PromoCode";
+import Statistics from "../Statistics/Statistics";
 
 const Admin = () => {
     const [activeTab, setActiveTab] = useState<string>("Books");
@@ -23,6 +24,8 @@ const Admin = () => {
                 return <Orders />;
             case "Promo Codes":
                 return <PromoCode />;
+            case "Statistics":
+                return <Statistics />
             default:
                 return <AdminBooks />;
         }

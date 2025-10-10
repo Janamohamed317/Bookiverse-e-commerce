@@ -2,7 +2,6 @@ const { Book } = require("../models/Book")
 const { User } = require("../models/User")
 const { Order, ValidateOrderCreation } = require("../models/Order")
 const asyncHandler = require("express-async-handler")
-const { PromoCode } = require("../models/PromoCode")
 const { validatePromoCode } = require("../utils/PromoCodeValidation")
 
 
@@ -49,6 +48,7 @@ const makeOrder = asyncHandler(async (req, res) => {
         const orderedBook = await Book.findById(book.book)
         subTotal += (book.quantity * book.price)
         orderedBook.quantity -= book.quantity
+        orderedBook.soldCount += book.quantity
         await orderedBook.save()
     }
 
@@ -72,7 +72,7 @@ const makeOrder = asyncHandler(async (req, res) => {
         user.codes.push({ code: promoCode._id })
         await user.save()
     }
-    
+
     const result = await newOrder.save()
     res.status(201).json(result);
 
@@ -127,7 +127,6 @@ const confirmOrder = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "Order confirmed", order });
 })
 
-
 const cancelOrder = asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id)
     if (!order) {
@@ -143,8 +142,24 @@ const cancelOrder = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "Order Canceled" });
 })
 
+
+
+const shipOrder = asyncHandler(async (req, res) => {
+    const { id } = req.params
+    const order = await Order.findById(id)
+    if (!order) {
+        return res.status(404).json({ message: "Order Not Found" })
+    }
+    order.status = "Shipped"
+    await order.save()
+    return res.status(200).json({ message: "Order is Shipped" })
+
+})
+
+
 module.exports =
 {
+    shipOrder,
     getAllOrders,
     getOrderByOrderId,
     getOrdersForUser,

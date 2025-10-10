@@ -44,6 +44,11 @@ const bookSchema = new mongoose.Schema({
     {
         type: Number,
         required: true
+    },
+    soldCount:
+    {
+        type: Number,
+        default: 0
     }
 
 }, {

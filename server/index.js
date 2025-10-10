@@ -8,6 +8,7 @@ const usersPath = require("./routes/users");
 const ordersPath = require("./routes/orders")
 const otpPath = require("./routes/otp")
 const promoCodePath = require("./routes/promoCodes")
+const statisticsPath = require("./routes/statistics")
 const dbConnection = require("./db/dbConnection");
 const { notFound, errorHandler } = require("./middlewares/errors")
 
@@ -17,15 +18,12 @@ const helmet = require("helmet")
 const cors = require("cors")
 
 
-// yhwl json l js obj
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 
 
-// Helmet
 app.use(helmet())
 
-// cors
 app.use(cors({
   origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -33,7 +31,6 @@ app.use(cors({
 }));
 
 
-// routes
 app.use('/api/books', booksPath);
 app.use('/api/authors', authorsPath);
 app.use('/api/auth', authPath);
@@ -43,9 +40,7 @@ app.use('/api/upload', uploadPath);
 app.use('/api/order', ordersPath);
 app.use('/api/otp', otpPath);
 app.use('/api/promo-code', promoCodePath);
-
-
-
+app.use('/api/statistics', statisticsPath);
 
 
 // Error Handler Middleware

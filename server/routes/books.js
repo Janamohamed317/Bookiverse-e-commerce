@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { verifyTokenAndAdmin, verifyTokenAndUser } = require("../middlewares/verifyToken")
-const { getAllBooks, getBookByID, addBook, editBook, deleteBook } = require("..//controllers/bookController")
+const { getAllBooks, getBookByID, addBook, editBook, deleteBook} = require("..//controllers/bookController")
 
 
 // Get all books
@@ -18,9 +18,6 @@ router.put("/edit/:id", verifyTokenAndAdmin, editBook)
 
 //delete book
 router.delete("/delete/:id", verifyTokenAndAdmin, deleteBook)
-
-
-
 
 
 module.exports = router;
