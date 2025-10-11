@@ -35,7 +35,6 @@ const PastOrders = () => {
                     <thead className="bg-[#3D2C22]/70 text-[#F5EDE0] text-sm md:text-base">
                         <tr>
                             <th className="text-left px-3 md:px-5 py-2 md:py-3">Order Number</th>
-                            <th className="text-left px-3 md:px-5 py-2 md:py-3">Date</th>
                             <th className="text-left px-3 md:px-5 py-2 md:py-3">Total</th>
                             <th className="text-left px-3 md:px-5 py-2 md:py-3">Status</th>
                             <th className="text-left px-3 md:px-5 py-2 md:py-3">Actions</th>
@@ -48,7 +47,6 @@ const PastOrders = () => {
                                 className="border-b border-[#6C584C]/30 hover:bg-[#3D2C22]/40 transition text-sm md:text-base"
                             >
                                 <td className="px-3 md:px-5 py-2 md:py-3">{order.orderNumber}</td>
-                                <td className="px-3 md:px-5 py-2 md:py-3">12-5-2025</td>
                                 <td className="px-3 md:px-5 py-2 md:py-3">{order.subTotal} $</td>
                                 <td className="px-3 md:px-5 py-2 md:py-3">{order.status}</td>
                                 <td className="px-3 md:px-5 py-2 md:py-3 space-x-2">
