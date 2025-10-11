@@ -28,7 +28,7 @@ export const useAuthorStore = create<AuthorState>((set) => ({
     getAuthors: async () => {
         set({ isLoadingAuthors: true });
         try {
-            const res = await axios.get("https://book-store-seven-tan.vercel.app/api/authors");
+            const res = await axios.get("https://bookiverse-e-commerce.vercel.app/api/authors");
             set({ authors: res.data });
         } catch (err) {
             console.error("Error fetching authors:", err);
@@ -40,7 +40,7 @@ export const useAuthorStore = create<AuthorState>((set) => ({
     AssignAuthorIdToAddedBook: async (firstName: string) => {
         try {
             const res = await axios.get(
-                `https://book-store-seven-tan.vercel.app/api/authors/name/${firstName}`
+                `https://bookiverse-e-commerce.vercel.app/api/authors/name/${firstName}`
             );
             
             const { setBookData, bookData } = useBookStore.getState();

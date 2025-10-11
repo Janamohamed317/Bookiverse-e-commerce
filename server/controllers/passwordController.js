@@ -17,7 +17,7 @@ module.exports.sendForgotPasswordEmail = asyncHandler(async (req, res) => {
     const secret = process.env.JWT_SECRET_KEY + user.password;
     const token = jwt.sign({ email: user.email, id: user.id }, secret, { expiresIn: "10m" });
 
-    const link = `http://localhost:5173/reset-password/${user.id}/${token}`;
+    const link = `https://bookiverse-e-commerce-73tn.vercel.app//${user.id}/${token}`;
 
 
     await sendEmail("Reset Your Password", email, `<p>Click the link below to reset your password:</p><a href="${link}">${link}</a>`)

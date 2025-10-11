@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { updateAuthor } from '../../services/AuthorsServices';
 import type { Author, NewAuthor } from '../../types/Author';
 import Swal from 'sweetalert2';
@@ -6,13 +6,11 @@ import axios from 'axios';
 import { useNavigate } from 'react-router';
 
 const useUpdateAuthor = (authorData: NewAuthor, author: Author) => {
-    const queryClient = useQueryClient();
     const navigate = useNavigate();
 
     return useMutation({
         mutationFn: () => updateAuthor(authorData, author),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["authors"] });
             Swal.fire({
                 icon: "success",
                 text: "Author successfully updated",
