@@ -1,8 +1,7 @@
 import axios, { type AxiosResponse, type Method } from "axios";
 
 const apiClient = axios.create({
-    // baseURL: "https://book-store-seven-tan.vercel.app",
-    baseURL: "http://localhost:5000/",
+    baseURL: "https://bookiverse-e-commerce.vercel.app/",
     headers: {
         'Content-Type': 'application/json',
     },
