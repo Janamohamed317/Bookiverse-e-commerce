@@ -31,7 +31,7 @@ const TopSalesChart = () => {
                         outerRadius={120}
                         label={({ name, value }) => `${name}: ${value}`}
                     >
-                        {chartData.map((entry, index) => (
+                        {chartData.map((_, index) => (
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                     </Pie>
