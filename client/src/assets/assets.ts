@@ -40,6 +40,10 @@ interface SideBarItem {
 
 export const sideBarItems: SideBarItem[] = [
     {
+        label: "Statistics",
+        id: 6
+    },
+    {
         label: "Authors",
         id: 1,
     },
@@ -59,10 +63,7 @@ export const sideBarItems: SideBarItem[] = [
         label: "Promo Codes",
         id: 5
     },
-    {
-        label: "Statistics",
-        id: 6
-    }
+
 ]
 
 

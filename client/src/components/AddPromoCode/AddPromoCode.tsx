@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { NewPromoCode, PromoCode } from "../../types/PromoCode";
+import type { NewPromoCode } from "../../types/PromoCode";
 import useAddPromoCode from "../../hooks/PromoCode/useAddPromoCode";
 
 const AddPromoCode = () => {
@@ -76,7 +76,7 @@ const AddPromoCode = () => {
                         type="text"
                         id="code"
                         className="bg-[#f5f5dc] text-[#3e2723] p-2 rounded focus:ring-2 focus:ring-[#a47148] outline-none"
-                        placeholder="Optional code"
+                        placeholder="Leave blank to auto generate a promo code"
                         value={promoCode.code}
                         onChange={(e) =>
                             setPromoCode({ ...promoCode, code: e.target.value })

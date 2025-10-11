@@ -29,7 +29,7 @@ router.put("/confirmOrder/:id", verifyOrderConfirmationAndCancelation, confirmOr
 // cancel order
 router.delete("/cancel/:id", verifyOrderConfirmationAndCancelation, cancelOrder)
 
-router.post("/shipOrder", verifyTokenAndAdmin, shipOrder)
+router.put("/shipOrder/:id", verifyTokenAndAdmin, shipOrder)
 
 module.exports = router
 

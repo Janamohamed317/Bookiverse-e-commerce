@@ -11,7 +11,7 @@ const Checkout = () => {
     const [shippingInfo, setShippingInfo] = useState<CheckOut>({
         address: "",
         phone: "",
-        notes: "",
+        notes: "None",
     });
 
     const { mutation, promoCodeRes } = useCheckPromoCode()

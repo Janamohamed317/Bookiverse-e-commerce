@@ -1,18 +1,18 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { deleteOrder } from "../../services/OrdersServices"
-import axios from "axios";
-import Swal from "sweetalert2";
-import type { Error } from "../../types/Error";
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { shipOrder } from '../../services/OrdersServices'
+import Swal from 'sweetalert2';
+import axios from 'axios';
+import type { Error } from '../../types/Error';
 
-
-const useDeleteOrder = () => {
+const useShipOrder = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: deleteOrder,
+        mutationFn: shipOrder,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["orders"] });
             queryClient.invalidateQueries({ queryKey: ["pastOrders"] });
+
         },
         onError: (error) => {
             if (axios.isAxiosError<Error>(error)) {
@@ -27,4 +27,4 @@ const useDeleteOrder = () => {
     })
 }
 
-export default useDeleteOrder
+export default useShipOrder

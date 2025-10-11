@@ -42,7 +42,6 @@ const makeOrder = asyncHandler(async (req, res) => {
         }
     }
 
-
     let subTotal = 30
     for (const book of req.body.books) {
         const orderedBook = await Book.findById(book.book)
@@ -132,6 +131,9 @@ const cancelOrder = asyncHandler(async (req, res) => {
     if (!order) {
         return res.status(404).json({ message: "Order Not Found" })
     }
+    if (order.status === "Shipped") {
+        return res.status(400).json({ message: "Order is Shipped, You Can't Cancel Now" })
+    }
     for (orderedBook of order.books) {
         const book = await Book.findById(orderedBook.book)
         book.quantity += orderedBook.quantity
@@ -139,7 +141,7 @@ const cancelOrder = asyncHandler(async (req, res) => {
 
     }
     await Order.findByIdAndDelete(req.params.id)
-    res.status(200).json({ message: "Order Canceled" });
+    return res.status(200).json({ message: "Order Canceled" });
 })
 
 

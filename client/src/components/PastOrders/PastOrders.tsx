@@ -3,7 +3,6 @@ import useGetUserOrders from "../../hooks/orders/useGetUserOrders";
 import useConfirmOrder from "../../hooks/orders/useConfirmOrder";
 import useCancelOrder from "../../hooks/orders/useCancelOrder";
 import Spinner from "../Spinner/Spinner";
-import Swal from "sweetalert2";
 
 const PastOrders = () => {
     const navigate = useNavigate();
@@ -18,28 +17,7 @@ const PastOrders = () => {
         return <p className="text-center text-gray-400">No Orders Yet</p>;
     }
 
-    const handleCancel = (orderId: string) => {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "This action cannot be undone.",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
-            confirmButtonText: "Yes, cancel it!",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                cancelOrder.mutate(orderId, {
-                    onSuccess: () => {
-                        Swal.fire("Cancelled!", "Your order has been cancelled.", "success");
-                    },
-                    onError: () => {
-                        Swal.fire("Error!", "Something went wrong, please try again.", "error");
-                    },
-                });
-            }
-        });
-    };
+   
 
     if(confirmOrder.isPending)
     {
@@ -91,11 +69,11 @@ const PastOrders = () => {
                                     >
                                         Confirm
                                     </button>
-                                    <button disabled={order.status === "Confirmed"}
+                                    <button disabled={order.status === "Confirmed" || order.status === "Shipped"}
                                         className="cursor-pointer px-3 md:px-4 py-1.5 md:py-2 rounded-lg md:rounded-xl bg-[#7B2D26]
                                      hover:bg-[#5C1F19] text-[#f5f5dc] font-semibold text-sm 
                                      disabled:opacity-60"
-                                        onClick={() => handleCancel(order._id)} >
+                                        onClick={() => cancelOrder.mutate(order._id)} >
                                         Cancel
                                     </button>
 

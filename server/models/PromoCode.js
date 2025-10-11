@@ -36,7 +36,7 @@ function ValidateCodeCreation(obj) {
         code: Joi.string().min(6),
         startDate: Joi.date(),
         endDate: Joi.date().allow(null),
-        amount: Joi.number().required()
+        amount: Joi.number().required().min(1)
     })
 
     return schema.validate(obj)

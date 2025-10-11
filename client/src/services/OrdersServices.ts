@@ -15,7 +15,8 @@ export const cancelOrder = async (orderId: string) => {
     if (!token) {
         throw new Error("You must login as Admin");
     }
-    await apiRequest<Order>(`/api/order/cancel/${orderId}`, "DELETE", {}, token)
+    const res = await apiRequest<Order>(`/api/order/cancel/${orderId}`, "DELETE", {}, token)
+    return res
 }
 
 export const getUserPastOrders = async () => {
@@ -82,4 +83,12 @@ export const searchForOrder = (searchedOrder: string, data?: Order[]) => {
         return data
     }
     return data.filter((user) => user.orderNumber.toLowerCase().includes(`${searchedOrder}`))
+}
+
+export const shipOrder = (orderId: string) => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+        throw new Error("You must login as Admin");
+    }
+    return apiRequest(`/api/order/shipOrder/${orderId}`, "PUT", {}, token)
 }

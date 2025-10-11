@@ -6,6 +6,7 @@ import Search from "../../components/Search/Search"
 import { orderStatus } from "../../assets/assets"
 import useDeleteOrder from "../../hooks/orders/useDeleteOrder"
 import Spinner from "../../components/Spinner/Spinner"
+import useShipOrder from "../../hooks/orders/useShipOrder"
 
 const Orders = () => {
 
@@ -13,10 +14,15 @@ const Orders = () => {
     const [filterOption, setFilterOption] = useState("")
 
     const { data, isLoading } = useGetAllOrders(filterOption)
+    const shipOrder = useShipOrder()
     const deleteOrder = useDeleteOrder()
-    const FilteredData = searchForOrder(searchedItem, data!)
-
     const navigate = useNavigate()
+
+    if (!data) {
+        return <p>No Data is Availabe Now</p>
+    }
+    const FilteredData = searchForOrder(searchedItem, data)
+
 
     if (isLoading) {
         return <Spinner size={50} color="#E6D5C3" />;
@@ -63,16 +69,29 @@ const Orders = () => {
                             <td className="px-4 py-2">{order.user}</td>
                             <td className="px-4 py-2">
                                 <button
-                                    className="px-3 py-1 bg-[#D4A373] me-1 hover:bg-[#E5B185] text-[#2B2118] font-semibold rounded-lg cursor-pointer"
+                                    className="px-3 py-1 bg-[#D4A373] me-1 hover:bg-[#E5B185] text-[#2B2118]
+                                     font-semibold rounded-lg cursor-pointer"
                                     onClick={() => navigate(`/user/orders/${order._id}`)}
                                 >
                                     View
                                 </button>
+
+                                <button disabled={order.status === "Confirmed" || order.status === "Shipped"}
+                                    className="px-3 py-1 bg-[#D4A373] hover:bg-[#E5B185] text-[#2B2118] 
+                                    font-semibold rounded-lg cursor-pointer disabled:opacity-60"
+                                    onClick={() => {
+                                        shipOrder.mutate(order._id);
+
+                                    }}
+                                >
+                                    Ship
+                                </button>
+
                                 <button
-                                    className="px-3 py-1 bg-[#D4A373] hover:bg-[#E5B185] text-[#2B2118] font-semibold rounded-lg cursor-pointer"
+                                    className="px-3 py-1 bg-[#D4A373] hover:bg-[#E5B185] text-[#2B2118]
+                                     font-semibold rounded-lg cursor-pointer  ms-1"
                                     onClick={() => {
                                         deleteOrder.mutate(order._id);
-                                        console.log(order._id);
 
                                     }}
                                 >
