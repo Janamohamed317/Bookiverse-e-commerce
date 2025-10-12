@@ -4,6 +4,10 @@ import { useQuery } from "@tanstack/react-query";
 import type { Author } from "../../types/Author";
 import type { OrderedBooks } from "../../types/Order";
 import { useCartStore } from "../../store/cartStore";
+import { faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router";
+
 
 type BookInfoProps = {
     book: Book;
@@ -11,7 +15,7 @@ type BookInfoProps = {
 
 const BookCard = ({ book }: BookInfoProps) => {
     const authorId = book.author._id;
-
+    const navigate = useNavigate()
 
     const { incrementCartItem, decrementCartItem, getItemQuantity } = useCartStore();
 
@@ -19,7 +23,7 @@ const BookCard = ({ book }: BookInfoProps) => {
         queryKey: ["authorName", authorId],
         queryFn: async () => {
             const res = await axios.get(
-                `https://book-store-seven-tan.vercel.app/api/authors/${authorId}`
+                `https://bookiverse-e-commerce.vercel.app/api/authors/${authorId}`
             );
             return res.data;
         },
@@ -33,11 +37,10 @@ const BookCard = ({ book }: BookInfoProps) => {
         price: book.price,
         quantity: 1
     };
-
     const quantityInCart = getItemQuantity(bookToOrder);
     return (
         <div className="w-90 bg-white/5 backdrop-blur text-white rounded-lg">
-            <img src={book.image} className="rounded-t-lg w-full h-100" />
+            <img src={book.image} className="rounded-t-lg w-full h-100" alt="" />
             <div className="p-5">
                 <h5 className="mb-2 text-2xl font-bold tracking-tight ">
                     {book.title}
@@ -74,6 +77,14 @@ const BookCard = ({ book }: BookInfoProps) => {
                             >
                                 -
                             </button>
+                            <button className="flex p-1.5 items-center gap-2
+                             bg-[#D7A86E] hover:bg-[#7b6443]  text-[#2B2118] rounded cursor-pointer"
+                                onClick={() => navigate('/cart')}>
+                                Go to Cart
+                                <FontAwesomeIcon icon={faCartArrowDown}
+                                />
+                            </button>
+
                         </div>
                 }
             </div>
